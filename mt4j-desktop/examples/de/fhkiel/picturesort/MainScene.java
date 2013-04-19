@@ -1,14 +1,25 @@
 package de.fhkiel.picturesort;
 
 import org.mt4j.AbstractMTApplication;
+import org.mt4j.util.math.Vector3D;
+
+import org.mt4j.components.visibleComponents.shapes.MTRectangle;
 import org.mt4j.sceneManagement.AbstractScene;
+import org.mt4j.util.math.ToolsMath;
+import org.mt4j.input.inputProcessors.globalProcessors.CursorTracer;
 
 public class MainScene extends AbstractScene {
 
 	public MainScene(AbstractMTApplication mtApplication, String name) {
 		super(mtApplication, name);
 
-		// TODO Auto-generated constructor stub
+		CursorTracer c = new CursorTracer(mtApplication, this);
+		registerGlobalInputProcessor(c);
+
+		MTRectangle rect = new MTRectangle(mtApplication, 0, 0, 50, 50);
+
+
+		this.getCanvas().addChild(rect);
 	}
 
 	public void onEnter() {
