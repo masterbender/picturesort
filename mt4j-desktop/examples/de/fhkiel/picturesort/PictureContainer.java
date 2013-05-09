@@ -1,6 +1,9 @@
 package de.fhkiel.picturesort;
 
+import java.util.ArrayList;
+
 import org.mt4j.components.visibleComponents.shapes.MTRectangle;
+import org.mt4j.components.visibleComponents.widgets.MTImage;
 import org.mt4j.components.visibleComponents.widgets.MTTextField;
 import org.mt4j.util.font.FontManager;
 
@@ -8,6 +11,7 @@ import processing.core.PApplet;
 
 public class PictureContainer extends MTRectangle {
 
+	ArrayList<MTImage> mtImageArray = new ArrayList<MTImage>();
 	int offsetText = 5;
 	int pictureNumber= 0;
 
@@ -22,13 +26,24 @@ public class PictureContainer extends MTRectangle {
 		counterLabel.setNoFill(true);
 		counterLabel.setNoStroke(true);
 		counterLabel.setEnabled(false);
-		counterLabel.updateComponent(2);
 		super.addChild(counterLabel);
 
 	}
 	
 	public void setPicturenumber(int value) {
 		pictureNumber = value;
+		
 	}
+
+	public ArrayList<MTImage> getMtImageArray() {
+		return mtImageArray;
+	}
+
+	public void setMtImageArray(ArrayList<MTImage> mtImageArray) {
+		this.mtImageArray = mtImageArray;
+	}
+
+	
+
 
 }
