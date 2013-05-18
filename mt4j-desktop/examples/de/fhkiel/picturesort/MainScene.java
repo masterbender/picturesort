@@ -2,8 +2,6 @@ package de.fhkiel.picturesort;
 
 import org.mt4j.AbstractMTApplication;
 import org.mt4j.util.MTColor;
-import org.mt4j.components.visibleComponents.shapes.MTRectangle;
-import org.mt4j.components.visibleComponents.widgets.MTSlider;
 import org.mt4j.sceneManagement.AbstractScene;
 import org.mt4j.input.inputProcessors.globalProcessors.CursorTracer;
 
@@ -35,24 +33,13 @@ public class MainScene extends AbstractScene {
 		maybe.setFillColor(blue);
 		maybe.setEnabled(false);
 		this.getCanvas().addChild(maybe);
+		
 		PictureContainer trash = new PictureContainer(mtApplication, 708, 50,
 				270, 500);
 		trash.setFillColor(red);
 		trash.setEnabled(false);
 		this.getCanvas().addChild(trash);
 
-		keep.setPicturenumber(12);
-
-		/*
-		 * drawing buttom Container for Picture Loader
-		 *
-		MTRectangle bottomLayer = new MTRectangle(mtApplication, 0, 618, 1024,
-				150);
-		bottomLayer.setFillColor(grey);
-		bottomLayer.setEnabled(false);
-
-		this.getCanvas().addChild(bottomLayer);
-		*/
 		
 		PictureLoader loader = new PictureLoader(mtApplication);
 		this.getCanvas().addChild(loader);

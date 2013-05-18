@@ -47,7 +47,7 @@ public class PictureLoader extends MTComponent {
 		super(pApplet);
 		MTRectangle bottomLayer = new MTRectangle(pApplet, 0, 618, 1024, 150);
 		bottomLayer.setFillColor(grey);
-		bottomLayer.setEnabled(false);
+		bottomLayer.setPickable(false);
 		super.addChild(bottomLayer);
 
 		fc = new JFileChooser();
@@ -99,24 +99,26 @@ public class PictureLoader extends MTComponent {
 
 	protected void addToFilelist(File f, PApplet pApplet) {
 		System.out.println(f.getAbsolutePath());
-		;
+		//TODO loadimage only load from data dictonary ... neuen pfad einbinden !!
 		PImage temp = pApplet.loadImage(f.getAbsolutePath());
-		temp.resize(50, 50);
+		temp.resize(100, 120);
+		SortImage imgtemp = new SortImage(pApplet,temp);
+		imgtemp.setName(f.getName());
 
-		mtImageArray.add(new MTImage(pApplet, temp));
+		mtImageArray.add(imgtemp);
 
 	}
 
 	private void printImage(PApplet pApplet) {
 		int xpos = 100;
-		int ypos = 622;
+		int ypos = 632;
 
 		for (int i = 0; i < mtImageArray.size(); i++) {
 			mtImageArray.get(i).setNoFill(true);
 			mtImageArray.get(i).setNoStroke(true);
 			mtImageArray.get(i).translateGlobal(new Vector3D(xpos, ypos, 0));
 			super.addChild(mtImageArray.get(i));
-			xpos += (50 + 20);
+			xpos += (100 + 20);
 		}
 	}
 
