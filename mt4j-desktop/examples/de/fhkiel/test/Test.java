@@ -20,7 +20,11 @@ import org.mt4j.sceneManagement.AbstractScene;
 import org.mt4j.util.MTColor;
 import org.mt4j.util.math.Vector3D;
 
+import processing.core.PImage;
+
 import com.sun.corba.se.spi.orbutil.fsm.Input;
+
+import de.fhkiel.picturesort.SortImage;
 
 public class Test extends MTApplication {
 
@@ -91,6 +95,36 @@ class MainScene extends AbstractScene {
 
 		this.getCanvas().addChild(rect);
 
+		PImage temp = mtApplication.loadImage("01.png");
+		final SortImage img = new SortImage(mtApplication, temp, null);
+		img.setName("dd");
+		
+		img.addGestureListener(DragProcessor.class,
+				new IGestureEventListener() {
+
+			@Override
+			public boolean processGestureEvent(MTGestureEvent ge) {
+
+				switch (ge.getId()) {
+
+				case MTGestureEvent.GESTURE_ENDED: {
+					Vector3D location = ((DragEvent) ge).getTo();
+					PickResult pr = getCanvas().pick(location.x,
+							location.y);
+					if(pr.getPickList().size() > 1) {
+						System.out.println("nail");
+						img.destroy();
+					}
+
+				}
+				}
+
+				return false;
+			}
+
+		});
+		
+		this.getCanvas().addChild(img);
 	}
 
 }

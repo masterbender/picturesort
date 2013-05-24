@@ -5,6 +5,8 @@ import java.io.FilenameFilter;
 import java.util.ArrayList;
 import javax.swing.JFileChooser;
 import javax.swing.filechooser.FileFilter;
+
+import org.mt4j.AbstractMTApplication;
 import org.mt4j.components.MTComponent;
 import org.mt4j.components.visibleComponents.shapes.MTRectangle;
 import org.mt4j.components.visibleComponents.widgets.MTImage;
@@ -23,7 +25,7 @@ public class PictureLoader extends MTComponent {
 	JFileChooser fc;
 	FileFilter filter;
 	MTColor grey = new MTColor(105, 105, 105);
-	String loadFile = "load.jpg";
+	// String loadFile = "load.jpg";
 	int imageX = 150;
 	int imageY = 650;
 
@@ -43,36 +45,37 @@ public class PictureLoader extends MTComponent {
 		}
 	};
 
-	public PictureLoader(final PApplet pApplet) {
+	public PictureLoader(final AbstractMTApplication pApplet) {
 		super(pApplet);
 		MTRectangle bottomLayer = new MTRectangle(pApplet, 0, 618, 1024, 150);
 		bottomLayer.setFillColor(grey);
 		bottomLayer.setPickable(false);
+		bottomLayer.setName("buttomLayer");
 		super.addChild(bottomLayer);
 
 		fc = new JFileChooser();
 		fc.setCurrentDirectory(new java.io.File(
-				"/home/masterbender/git/picturesort/mt4j-desktop/examples/data/test"));
+				"/home/masterbender/git/picturesort/mt4j-desktop/examples/data/"));
 		fc.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
 
 		// fc.addChoosableFileFilter(filter);
 
-		PImage loadPhoto = pApplet.loadImage(loadFile);
+		PImage loadPhoto = pApplet.loadImage("load.jpg");
 		MTImageButton loadButton = new MTImageButton(pApplet, loadPhoto);
+		loadButton.setName("loadButton");
 		loadButton.setSizeLocal(30, 30);
 		loadButton.setNoStroke(true);
 		loadButton.translateGlobal(new Vector3D(5, 622, 0));
-
 		loadButton.addInputListener(new IMTInputEventListener() {
 
 			@Override
 			public boolean processInputEvent(MTInputEvent inEvt) {
-
+				// TODO bug : open several times when click button
 				int returnVal = fc.showOpenDialog(pApplet);
 
 				if (returnVal == JFileChooser.APPROVE_OPTION) {
 
-					File dir = fc.getCurrentDirectory();
+					File dir = fc.getSelectedFile();
 
 					if (dir.isDirectory()) {
 						for (File f : dir.listFiles(IMAGE_FILTER)) {
@@ -97,14 +100,12 @@ public class PictureLoader extends MTComponent {
 
 	}
 
-	protected void addToFilelist(File f, PApplet pApplet) {
+	protected void addToFilelist(File f, AbstractMTApplication pApplet) {
 		System.out.println(f.getAbsolutePath());
-		//TODO loadimage only load from data dictonary ... neuen pfad einbinden !!
+		// TODO loadimage only load from data dictonary ... neuen pfad einbinden
 		PImage temp = pApplet.loadImage(f.getAbsolutePath());
 		temp.resize(100, 120);
-		SortImage imgtemp = new SortImage(pApplet,temp);
-		imgtemp.setName(f.getName());
-
+		SortImage imgtemp = new SortImage(pApplet, temp, f);
 		mtImageArray.add(imgtemp);
 
 	}

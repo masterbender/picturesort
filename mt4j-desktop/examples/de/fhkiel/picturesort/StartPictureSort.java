@@ -19,7 +19,7 @@ public class StartPictureSort extends MTApplication{
 	
 	@Override
 	public void startUp() {
-		addScene(new MainScene(this, "Main Scene"));
+		addScene(new MainScene(this, "Main"));
 	}
 
 }
