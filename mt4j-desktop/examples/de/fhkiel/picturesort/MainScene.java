@@ -22,16 +22,16 @@ public class MainScene extends AbstractScene {
 		 * PictureLoader
 		 */
 
-		PictureContainer keep = new PictureContainer(mtApplication, 50, 50,
+		final PictureContainer keep = new PictureContainer(mtApplication, 50, 50,
 				270, 500);
-		keep.setFillColor(green);
+		keep.rect.setFillColor(green);
 		keep.setName("keepContainer");
 		
 		this.getCanvas().addChild(keep);
 
 		PictureContainer maybe = new PictureContainer(mtApplication, 380, 50,
 				270, 500);
-		maybe.setFillColor(blue);
+		maybe.rect.setFillColor(blue);
 		maybe.setName("maybeContainer");
 		
 		this.getCanvas().addChild(maybe);
@@ -39,7 +39,7 @@ public class MainScene extends AbstractScene {
 		PictureContainer trash = new PictureContainer(mtApplication, 708, 50,
 				270, 500);
 		trash.setName("trashContainer");
-		trash.setFillColor(red);
+		trash.rect.setFillColor(red);
 		
 		this.getCanvas().addChild(trash);
 

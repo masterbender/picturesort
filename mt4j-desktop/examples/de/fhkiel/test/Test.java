@@ -95,7 +95,7 @@ class MainScene extends AbstractScene {
 
 		this.getCanvas().addChild(rect);
 
-		PImage temp = mtApplication.loadImage("01.png");
+	/*	PImage temp = mtApplication.loadImage("01.png");
 		final SortImage img = new SortImage(mtApplication, temp, null);
 		img.setName("dd");
 		
@@ -125,6 +125,7 @@ class MainScene extends AbstractScene {
 		});
 		
 		this.getCanvas().addChild(img);
+		*/
 	}
 
 }

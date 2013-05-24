@@ -9,19 +9,17 @@ import javax.swing.filechooser.FileFilter;
 import org.mt4j.AbstractMTApplication;
 import org.mt4j.components.MTComponent;
 import org.mt4j.components.visibleComponents.shapes.MTRectangle;
-import org.mt4j.components.visibleComponents.widgets.MTImage;
 import org.mt4j.components.visibleComponents.widgets.buttons.MTImageButton;
 import org.mt4j.input.IMTInputEventListener;
 import org.mt4j.input.inputData.MTInputEvent;
 import org.mt4j.util.MTColor;
 import org.mt4j.util.math.Vector3D;
 
-import processing.core.PApplet;
 import processing.core.PImage;
 
 public class PictureLoader extends MTComponent {
 
-	ArrayList<MTImage> mtImageArray = new ArrayList<MTImage>();
+	ArrayList<String> ListArray = new ArrayList<String>();
 	JFileChooser fc;
 	FileFilter filter;
 	MTColor grey = new MTColor(105, 105, 105);
@@ -100,25 +98,30 @@ public class PictureLoader extends MTComponent {
 
 	}
 
-	protected void addToFilelist(File f, AbstractMTApplication pApplet) {
-		System.out.println(f.getAbsolutePath());
+	private void addToFilelist(File f, AbstractMTApplication pApplet) {
+		//System.out.println(f.getAbsolutePath());
 		// TODO loadimage only load from data dictonary ... neuen pfad einbinden
-		PImage temp = pApplet.loadImage(f.getAbsolutePath());
-		temp.resize(100, 120);
-		SortImage imgtemp = new SortImage(pApplet, temp, f);
-		mtImageArray.add(imgtemp);
+		//PImage temp = pApplet.loadImage(f.getAbsolutePath());
+		//temp.resize(100, 120);
+		//SortImage imgtemp = new SortImage(pApplet, temp, f);
+		ListArray.add(f.getAbsolutePath());
 
 	}
 
-	private void printImage(PApplet pApplet) {
+	private void printImage(AbstractMTApplication pApplet) {
 		int xpos = 100;
 		int ypos = 632;
 
-		for (int i = 0; i < mtImageArray.size(); i++) {
-			mtImageArray.get(i).setNoFill(true);
-			mtImageArray.get(i).setNoStroke(true);
-			mtImageArray.get(i).translateGlobal(new Vector3D(xpos, ypos, 0));
-			super.addChild(mtImageArray.get(i));
+		for (int i = 0; i < ListArray.size(); i++) {
+			PImage temp = pApplet.loadImage(ListArray.get(i));
+			temp.resize(100,200);
+			SortImage imgtemp = new SortImage(pApplet, temp, ListArray.get(i));
+			
+			
+			imgtemp.setNoFill(true);
+			imgtemp.setNoStroke(true);
+			imgtemp.translateGlobal(new Vector3D(xpos, ypos, 0));
+			super.addChild(imgtemp);
 			xpos += (100 + 20);
 		}
 	}

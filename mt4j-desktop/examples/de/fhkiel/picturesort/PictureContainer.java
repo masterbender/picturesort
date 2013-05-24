@@ -3,21 +3,25 @@ package de.fhkiel.picturesort;
 import java.util.ArrayList;
 
 import org.mt4j.AbstractMTApplication;
+import org.mt4j.components.MTComponent;
 import org.mt4j.components.visibleComponents.shapes.MTRectangle;
 
 import org.mt4j.components.visibleComponents.widgets.MTTextField;
 import org.mt4j.util.font.FontManager;
 
-public class PictureContainer extends MTRectangle {
+public class PictureContainer extends MTComponent {
 
-	ArrayList<SortImage> mtImageArray = new ArrayList<SortImage>();
+	ArrayList<String> mtImageArray = new ArrayList<String>();
 	int offsetText = 5;
 	int pictureNumber = 0;
+	MTRectangle rect;
 
 	public PictureContainer(AbstractMTApplication pApplet, float x, float y, float width,
 			float height) {
 		
-		super(pApplet, x, y, width, height);
+		super(pApplet);
+		MTRectangle rect = new MTRectangle(pApplet, x,y, width, height);
+		rect.removeAllGestureEventListeners();
 		this.removeAllGestureEventListeners();
 
 		MTTextField counterLabel = new MTTextField(pApplet, x + offsetText, y
@@ -26,7 +30,8 @@ public class PictureContainer extends MTRectangle {
 		counterLabel.setText("" + pictureNumber);
 		counterLabel.setNoFill(true);
 		counterLabel.setNoStroke(true);
-		this.addChild(counterLabel);
+		rect.addChild(counterLabel);
+		this.addChild(rect);
 
 	}
 
@@ -36,15 +41,15 @@ public class PictureContainer extends MTRectangle {
 	}
 
 	public ArrayList<SortImage> getMtImageArray() {
-		return mtImageArray;
+		return null;
 	}
 
 
-	public void addImagetoList(SortImage image) {
+	public void addImagetoList(String image) {
 		mtImageArray.add(image);
 	}
 	
-	public void removeImagefromList(SortImage image){
+	public void removeImagefromList(String image){
 		mtImageArray.remove(image);
 	}
 

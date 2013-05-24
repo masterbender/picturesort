@@ -1,8 +1,6 @@
 package de.fhkiel.picturesort;
 
-import java.io.File;
 import java.util.List;
-
 import org.mt4j.AbstractMTApplication;
 import org.mt4j.components.PickResult;
 import org.mt4j.components.PickResult.PickEntry;
@@ -19,12 +17,9 @@ public class SortImage extends MTImage {
 
 	public PickResult pr;
 
-	public SortImage(final AbstractMTApplication pApplet, PImage texture,
-			final File f) {
+	public SortImage(final AbstractMTApplication pApplet, PImage texture, String path) {
 		super(pApplet, texture);
-		if (f != null) {
-			setName(f.getName());
-		}
+
 
 		this.addGestureListener(DragProcessor.class,
 				new IGestureEventListener() {
@@ -44,6 +39,11 @@ public class SortImage extends MTImage {
 							for (PickEntry pe : underneathComponents) {
 								
 								if (pe.hitObj.getName().equals("keepContainer")) {
+									
+									
+			//	pApplet.getScene("Main").getCanvas().getChildByName("keepContainer");
+									
+									
 									destroy();
 								}
 								if (pe.hitObj.getName()
