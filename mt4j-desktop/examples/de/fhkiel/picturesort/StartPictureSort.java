@@ -21,5 +21,6 @@ public class StartPictureSort extends MTApplication{
 	public void startUp() {
 		addScene(new MainScene(this, "Main"));
 	}
+	
 
 }

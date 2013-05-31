@@ -3,6 +3,7 @@ package de.fhkiel.picturesort;
 import org.mt4j.AbstractMTApplication;
 import org.mt4j.util.MTColor;
 import org.mt4j.sceneManagement.AbstractScene;
+import org.mt4j.sceneManagement.IPreDrawAction;
 import org.mt4j.input.inputProcessors.globalProcessors.CursorTracer;
 
 public class MainScene extends AbstractScene {
@@ -47,4 +48,7 @@ public class MainScene extends AbstractScene {
 
 	public void onLeave() {
 	}
+
+
+
 }

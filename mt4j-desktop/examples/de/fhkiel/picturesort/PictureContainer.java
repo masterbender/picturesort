@@ -12,6 +12,8 @@ import org.mt4j.input.inputData.MTInputEvent;
 import org.mt4j.util.MTColor;
 import org.mt4j.util.font.FontManager;
 
+
+
 public class PictureContainer extends MTComponent {
 
 	ArrayList<String> mtImageArray = new ArrayList<String>();
@@ -47,8 +49,29 @@ public class PictureContainer extends MTComponent {
 			public boolean processInputEvent(MTInputEvent inEvt) {
 				//TODO open View scene and display the pictures
 				// that are contained in picturearray from container
+				System.out.println("drin");
+				pApplet.invokeLater(new Runnable() {
+
+					@Override
+					public void run() {
 				
-				System.out.println("Open View for Caintainer");
+						pApplet.pushScene();
+						ViewScene viewScene= null;
+						
+						if (viewScene == null){
+							viewScene = new ViewScene(pApplet, "ViewScene");
+							//Add the scene to the mt application
+							pApplet.addScene(viewScene);
+						}
+						//Do the scene change
+						pApplet.changeScene(viewScene);
+						
+						
+					
+					}
+					
+				});
+				
 				return false;
 			}
 		});

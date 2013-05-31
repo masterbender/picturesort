@@ -2,6 +2,7 @@ package de.fhkiel.picturesort;
 
 import java.util.List;
 import org.mt4j.AbstractMTApplication;
+import org.mt4j.MTApplication;
 import org.mt4j.components.PickResult;
 import org.mt4j.components.PickResult.PickEntry;
 import org.mt4j.components.visibleComponents.widgets.MTImage;
@@ -9,7 +10,9 @@ import org.mt4j.input.inputProcessors.IGestureEventListener;
 import org.mt4j.input.inputProcessors.MTGestureEvent;
 import org.mt4j.input.inputProcessors.componentProcessors.dragProcessor.DragEvent;
 import org.mt4j.input.inputProcessors.componentProcessors.dragProcessor.DragProcessor;
+import org.mt4j.sceneManagement.IPreDrawAction;
 import org.mt4j.util.math.Vector3D;
+import de.fhkiel.picturesort.PictureContainer;
 
 import processing.core.PImage;
 
@@ -17,10 +20,11 @@ public class SortImage extends MTImage {
 
 	public PickResult pr;
 
-	public SortImage(final AbstractMTApplication pApplet, PImage texture, String path) {
+	public SortImage(final AbstractMTApplication pApplet, PImage texture, final String path) {
 		super(pApplet, texture);
+	
 
-
+		
 		this.addGestureListener(DragProcessor.class,
 				new IGestureEventListener() {
 
@@ -40,19 +44,43 @@ public class SortImage extends MTImage {
 								
 								if (pe.hitObj.getName().equals("keepContainer")) {
 									
-								
 									
-			
+									pApplet.invokeLater(new Runnable() {
+
+										@Override
+										public void run() {
+											( (PictureContainer) pApplet.getScene("Main").getCanvas().getChildByName("keepContainer")).addImagetoList(path);		
+										}
+										
+									});
 									
 									
 									destroy();
 								}
 								if (pe.hitObj.getName()
 										.equals("maybeContainer")) {
+									
+									pApplet.invokeLater(new Runnable() {
+
+										@Override
+										public void run() {
+											( (PictureContainer) pApplet.getScene("Main").getCanvas().getChildByName("maybeContainer")).addImagetoList(path);		
+										}
+										
+									});
+									
 									destroy();
 								}
 								if (pe.hitObj.getName()
 										.equals("trashContainer")) {
+									pApplet.invokeLater(new Runnable() {
+
+										@Override
+										public void run() {
+											( (PictureContainer) pApplet.getScene("Main").getCanvas().getChildByName("trashContainer")).addImagetoList(path);		
+										}
+										
+									});
 									destroy();
 								}
 
@@ -68,6 +96,8 @@ public class SortImage extends MTImage {
 				});
 
 	}
+
+
 
 
 
