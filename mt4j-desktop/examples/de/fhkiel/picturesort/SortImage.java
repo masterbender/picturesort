@@ -40,8 +40,9 @@ public class SortImage extends MTImage {
 								
 								if (pe.hitObj.getName().equals("keepContainer")) {
 									
+								
 									
-			//	pApplet.getScene("Main").getCanvas().getChildByName("keepContainer");
+			
 									
 									
 									destroy();

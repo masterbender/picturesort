@@ -10,36 +10,26 @@ public class MainScene extends AbstractScene {
 	public MainScene(AbstractMTApplication mtApplication, String name) {
 		super(mtApplication, name);
 
-		MTColor red = new MTColor(255, 0, 0);
-		MTColor green = new MTColor(0, 255, 0);
-		MTColor blue = new MTColor(0, 0, 255);
+		MTColor containerColor = new MTColor(7, 44, 49);
 
 		CursorTracer c = new CursorTracer(mtApplication, this);
 		registerGlobalInputProcessor(c);
 
-		/*
-		 * init GUI Layout for Mainscene TOP = PicuterContainer BUTTOM =
-		 * PictureLoader
-		 */
 
-		final PictureContainer keep = new PictureContainer(mtApplication, 50, 50,
-				270, 500);
-		keep.rect.setFillColor(green);
-		keep.setName("keepContainer");
+		PictureContainer keep = new PictureContainer(mtApplication, 50, 50,
+				270, 500, "keepContainer", containerColor);
 		
 		this.getCanvas().addChild(keep);
-
+		
 		PictureContainer maybe = new PictureContainer(mtApplication, 380, 50,
-				270, 500);
-		maybe.rect.setFillColor(blue);
-		maybe.setName("maybeContainer");
+				270, 500, "maybeContainer", containerColor);
+
 		
 		this.getCanvas().addChild(maybe);
 		
 		PictureContainer trash = new PictureContainer(mtApplication, 708, 50,
-				270, 500);
-		trash.setName("trashContainer");
-		trash.rect.setFillColor(red);
+				270, 500, "trashContainer", containerColor);
+
 		
 		this.getCanvas().addChild(trash);
 
@@ -48,9 +38,6 @@ public class MainScene extends AbstractScene {
 		this.getCanvas().addChild(loader);
 		
 		
-		
-		
-
 
 	}
 

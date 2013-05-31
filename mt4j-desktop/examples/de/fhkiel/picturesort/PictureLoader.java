@@ -22,7 +22,7 @@ public class PictureLoader extends MTComponent {
 	ArrayList<String> ListArray = new ArrayList<String>();
 	JFileChooser fc;
 	FileFilter filter;
-	MTColor grey = new MTColor(105, 105, 105);
+	MTColor grey = new MTColor(42,61,63);
 	// String loadFile = "load.jpg";
 	int imageX = 150;
 	int imageY = 650;
@@ -114,7 +114,7 @@ public class PictureLoader extends MTComponent {
 
 		for (int i = 0; i < ListArray.size(); i++) {
 			PImage temp = pApplet.loadImage(ListArray.get(i));
-			temp.resize(100,200);
+			temp.resize(100,120);
 			SortImage imgtemp = new SortImage(pApplet, temp, ListArray.get(i));
 			
 			
