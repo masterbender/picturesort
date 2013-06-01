@@ -38,7 +38,6 @@ public class MainScene extends AbstractScene {
 		PictureLoader loader = new PictureLoader(mtApplication);
 		this.getCanvas().addChild(loader);
 		
-		
 
 	}
 
