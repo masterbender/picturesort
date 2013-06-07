@@ -22,8 +22,8 @@ public class PictureLoader extends MTComponent {
 	ArrayList<String> ListArray = new ArrayList<String>();
 	JFileChooser fc;
 	FileFilter filter;
-	MTColor grey = new MTColor(42,61,63);
-	// String loadFile = "load.jpg";
+	MTColor grey = new MTColor(42, 61, 63);
+	MTImageButton loadButton;
 	int imageX = 150;
 	int imageY = 650;
 
@@ -43,6 +43,9 @@ public class PictureLoader extends MTComponent {
 		}
 	};
 
+	/**
+	 * @param pApplet
+	 */
 	public PictureLoader(final AbstractMTApplication pApplet) {
 		super(pApplet);
 		MTRectangle bottomLayer = new MTRectangle(pApplet, 0, 618, 1024, 150);
@@ -59,7 +62,8 @@ public class PictureLoader extends MTComponent {
 		// fc.addChoosableFileFilter(filter);
 
 		PImage loadPhoto = pApplet.loadImage("load.jpg");
-		MTImageButton loadButton = new MTImageButton(pApplet, loadPhoto);
+		
+		loadButton = new MTImageButton(pApplet, loadPhoto);
 		loadButton.setName("loadButton");
 		loadButton.setSizeLocal(30, 30);
 		loadButton.setNoStroke(true);
@@ -83,6 +87,7 @@ public class PictureLoader extends MTComponent {
 						}
 					}
 					printImage(pApplet);
+					returnVal = -1;
 					return true;
 				} else {
 					System.out.println("Open command cancelled by user.");
@@ -98,26 +103,32 @@ public class PictureLoader extends MTComponent {
 
 	}
 
+	/**
+	 * @param f
+	 * @param pApplet
+	 */
 	private void addToFilelist(File f, AbstractMTApplication pApplet) {
-		//System.out.println(f.getAbsolutePath());
+		// System.out.println(f.getAbsolutePath());
 		// TODO loadimage only load from data dictonary ... neuen pfad einbinden
-		//PImage temp = pApplet.loadImage(f.getAbsolutePath());
-		//temp.resize(100, 120);
-		//SortImage imgtemp = new SortImage(pApplet, temp, f);
+		// PImage temp = pApplet.loadImage(f.getAbsolutePath());
+		// temp.resize(100, 120);
+		// SortImage imgtemp = new SortImage(pApplet, temp, f);
 		ListArray.add(f.getAbsolutePath());
 
 	}
 
+	/**
+	 * @param pApplet
+	 */
 	private void printImage(AbstractMTApplication pApplet) {
 		int xpos = 100;
 		int ypos = 632;
 
 		for (int i = 0; i < ListArray.size(); i++) {
 			PImage temp = pApplet.loadImage(ListArray.get(i));
-			temp.resize(100,120);
+			temp.resize(100, 120);
 			SortImage imgtemp = new SortImage(pApplet, temp, ListArray.get(i));
-			
-			
+
 			imgtemp.setNoFill(true);
 			imgtemp.setNoStroke(true);
 			imgtemp.translateGlobal(new Vector3D(xpos, ypos, 0));

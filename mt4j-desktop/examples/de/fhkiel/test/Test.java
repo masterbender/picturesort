@@ -9,6 +9,7 @@ import org.mt4j.components.PickResult;
 import org.mt4j.components.TransformSpace;
 import org.mt4j.components.visibleComponents.shapes.MTEllipse;
 import org.mt4j.components.visibleComponents.shapes.MTRectangle;
+import org.mt4j.components.visibleComponents.widgets.MTTextField;
 import org.mt4j.input.IMTInputEventListener;
 import org.mt4j.input.inputData.MTInputEvent;
 import org.mt4j.input.inputProcessors.IGestureEventListener;
@@ -18,6 +19,7 @@ import org.mt4j.input.inputProcessors.componentProcessors.dragProcessor.DragProc
 import org.mt4j.input.inputProcessors.globalProcessors.CursorTracer;
 import org.mt4j.sceneManagement.AbstractScene;
 import org.mt4j.util.MTColor;
+import org.mt4j.util.font.FontManager;
 import org.mt4j.util.math.Vector3D;
 
 import processing.core.PImage;
@@ -33,6 +35,7 @@ public class Test extends MTApplication {
 	 */
 	private static final long serialVersionUID = -521231864256214275L;
 
+	
 	/**
 	 * @param args
 	 */
@@ -51,81 +54,33 @@ public class Test extends MTApplication {
 
 class MainScene extends AbstractScene {
 
+	public MTRectangle rect;
+	public MTTextField text;
+	
 	public MainScene(AbstractMTApplication mtApplication, String name) {
 		super(mtApplication, name);
 
-		CursorTracer c = new CursorTracer(mtApplication, this);
-		registerGlobalInputProcessor(c);
-
-		 MTRectangle dropzone = new MTRectangle(mtApplication, 200, 200);
-		// dropzone.setPickable(true);
-		dropzone.setFillColor(new MTColor(255, 0, 255));
-		dropzone.setPositionGlobal(new Vector3D(400, 200, 0));
-		dropzone.setName("dropzone");
-		dropzone.removeAllGestureEventListeners();
-
-		this.getCanvas().addChild(dropzone);
-
-		final MTRectangle rect = new MTRectangle(mtApplication, 70, 70);
-		rect.setName("test_rect");
-		rect.addGestureListener(DragProcessor.class,
-				new IGestureEventListener() {
-
-					@Override
-					public boolean processGestureEvent(MTGestureEvent ge) {
-
-						switch (ge.getId()) {
-
-						case MTGestureEvent.GESTURE_ENDED: {
-							Vector3D location = ((DragEvent) ge).getTo();
-							PickResult pr = getCanvas().pick(location.x,
-									location.y);
-							if(pr.getPickList().size() > 1) {
-								System.out.println("nail");
-								rect.destroy();
-							}
-
-						}
-						}
-
-						return false;
-					}
-
-				});
-
+		 text =  new MTTextField(mtApplication, 10, 10, 100, 50, FontManager.getInstance().createFont(
+				mtApplication, "SansSerif", 18));
+		text.setText("Hallo");
+		text.updateComponent(100);
+		this.getCanvas().addChild(text);
+		rect = new MTRectangle(mtApplication, 100, 100);
+		rect.setName("muhh");
+		rect.setFillColor(new MTColor(23, 23, 0));
 		this.getCanvas().addChild(rect);
-
-	/*	PImage temp = mtApplication.loadImage("01.png");
-		final SortImage img = new SortImage(mtApplication, temp, null);
-		img.setName("dd");
 		
-		img.addGestureListener(DragProcessor.class,
-				new IGestureEventListener() {
 
-			@Override
-			public boolean processGestureEvent(MTGestureEvent ge) {
-
-				switch (ge.getId()) {
-
-				case MTGestureEvent.GESTURE_ENDED: {
-					Vector3D location = ((DragEvent) ge).getTo();
-					PickResult pr = getCanvas().pick(location.x,
-							location.y);
-					if(pr.getPickList().size() > 1) {
-						System.out.println("nail");
-						img.destroy();
-					}
-
-				}
-				}
-
-				return false;
-			}
-
-		});
+		updateColor(mtApplication);
 		
-		this.getCanvas().addChild(img);
-		*/
+		
+	}
+
+	public void updateColor(AbstractMTApplication mtApplication) {
+		rect.setFillColor(new MTColor(255, 255, 0));
+		text.setText("moethod");
+		mtApplication.update(mtApplication.getGraphics());
+		
 	}
 
 }

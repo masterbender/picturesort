@@ -18,6 +18,11 @@ public class SortImage extends MTImage {
 
 	public PickResult pr;
 
+	/**
+	 * @param pApplet
+	 * @param texture
+	 * @param path
+	 */
 	public SortImage(final AbstractMTApplication pApplet, PImage texture,
 			final String path) {
 		super(pApplet, texture);
@@ -51,6 +56,13 @@ public class SortImage extends MTImage {
 													.getChildByName(
 															"keepContainer"))
 													.addImagetoList(path);
+											((PictureContainer) pApplet
+													.getScene("Main")
+													.getCanvas()
+													.getChildByName(
+															"keepContainer"))
+													.updateNumber(pApplet);
+
 										}
 
 									});
@@ -70,6 +82,12 @@ public class SortImage extends MTImage {
 													.getChildByName(
 															"maybeContainer"))
 													.addImagetoList(path);
+											((PictureContainer) pApplet
+													.getScene("Main")
+													.getCanvas()
+													.getChildByName(
+															"maybeContainer"))
+													.updateNumber(pApplet);
 										}
 
 									});
@@ -88,6 +106,12 @@ public class SortImage extends MTImage {
 													.getChildByName(
 															"trashContainer"))
 													.addImagetoList(path);
+											((PictureContainer) pApplet
+													.getScene("Main")
+													.getCanvas()
+													.getChildByName(
+															"trashContainer"))
+													.updateNumber(pApplet);
 										}
 
 									});

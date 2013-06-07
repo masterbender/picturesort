@@ -1,6 +1,7 @@
 package de.fhkiel.picturesort;
 
 import org.mt4j.AbstractMTApplication;
+import org.mt4j.MTApplication;
 import org.mt4j.util.MTColor;
 import org.mt4j.sceneManagement.AbstractScene;
 import org.mt4j.sceneManagement.IPreDrawAction;
@@ -8,6 +9,11 @@ import org.mt4j.input.inputProcessors.globalProcessors.CursorTracer;
 
 public class MainScene extends AbstractScene {
 
+
+	/**
+	 * @param mtApplication
+	 * @param name
+	 */
 	public MainScene(AbstractMTApplication mtApplication, String name) {
 		super(mtApplication, name);
 
@@ -17,10 +23,17 @@ public class MainScene extends AbstractScene {
 		registerGlobalInputProcessor(c);
 
 
-		PictureContainer keep = new PictureContainer(mtApplication, 50, 50,
+		 PictureContainer keep = new PictureContainer(mtApplication, 50, 50,
 				270, 500, "keepContainer", containerColor);
 		
+		
 		this.getCanvas().addChild(keep);
+		
+		
+		
+
+		
+		
 		
 		PictureContainer maybe = new PictureContainer(mtApplication, 380, 50,
 				270, 500, "maybeContainer", containerColor);
@@ -40,6 +53,9 @@ public class MainScene extends AbstractScene {
 		
 
 	}
+
+
+
 
 
 	public void onEnter() {
