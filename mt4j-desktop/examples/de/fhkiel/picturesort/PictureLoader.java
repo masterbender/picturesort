@@ -4,8 +4,6 @@ import java.io.File;
 import java.io.FilenameFilter;
 import java.util.ArrayList;
 import javax.swing.JFileChooser;
-import javax.swing.filechooser.FileFilter;
-
 import org.mt4j.AbstractMTApplication;
 import org.mt4j.components.MTComponent;
 import org.mt4j.components.visibleComponents.shapes.MTRectangle;
@@ -16,16 +14,17 @@ import org.mt4j.util.MTColor;
 import org.mt4j.util.math.Vector3D;
 import processing.core.PImage;
 
+/**
+ * @author masterbender
+ * 
+ */
 public class PictureLoader extends MTComponent {
 
-	ArrayList<String> ListArray = new ArrayList<String>();
-	JFileChooser fc;
-	FileFilter filter;
-	MTColor grey = new MTColor(42, 61, 63);
-	MTImageButton loadButton;
-	int imageX = 150;
-	int imageY = 650;
-	PictureExport exp = new PictureExport();
+	public ArrayList<String> mtListArray = new ArrayList<String>();
+	private JFileChooser fc;
+	private MTColor grey = new MTColor(42, 61, 63);
+	private MTImageButton loadButton;
+	private PictureExport exp = new PictureExport();
 
 	// array of supported extensions (use a List if you prefer)
 	static final String[] EXTENSIONS = new String[] { "gif", "png", "bmp" };
@@ -45,6 +44,7 @@ public class PictureLoader extends MTComponent {
 
 	/**
 	 * @param pApplet
+	 *            Constructor for Picture Loader
 	 */
 	public PictureLoader(final AbstractMTApplication pApplet) {
 		super(pApplet);
@@ -53,16 +53,12 @@ public class PictureLoader extends MTComponent {
 		bottomLayer.setPickable(false);
 		bottomLayer.setName("buttomLayer");
 		super.addChild(bottomLayer);
-
 		fc = new JFileChooser();
 		fc.setCurrentDirectory(new java.io.File(
 				"/home/masterbender/git/picturesort/mt4j-desktop/examples/data/"));
 		fc.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
-
 		// fc.addChoosableFileFilter(filter);
-
 		PImage loadPhoto = pApplet.loadImage("load.jpg");
-
 		loadButton = new MTImageButton(pApplet, loadPhoto);
 		loadButton.setName("loadButton");
 		loadButton.setSizeLocal(30, 30);
@@ -73,21 +69,12 @@ public class PictureLoader extends MTComponent {
 			@Override
 			public boolean processInputEvent(MTInputEvent inEvt) {
 				// TODO bug : open several times when click button
-
-		
-					
-
 				int returnVal = fc.showOpenDialog(pApplet);
-
 				if (returnVal == JFileChooser.APPROVE_OPTION) {
-
 					File dir = fc.getSelectedFile();
-
 					if (dir.isDirectory()) {
 						for (File f : dir.listFiles(IMAGE_FILTER)) {
-
 							addToFilelist(f, pApplet);
-
 						}
 					}
 					printImage(pApplet);
@@ -96,54 +83,42 @@ public class PictureLoader extends MTComponent {
 				} else {
 					System.out.println("Open command cancelled by user.");
 				}
-
 				return false;
-
 			}
-
 		});
-
 		bottomLayer.addChild(loadButton);
-		
-		if ((ListArray = exp.getImport()) != null){
+		if ((mtListArray = exp.getImport()) != null) {
 			printImage(pApplet);
 		}
-		
 		Runtime.getRuntime().addShutdownHook(new Thread(new Runnable() {
-            public void run() {
-                exp.updateStatus(ListArray);
-                
-            }
-        }));
+			public void run() {
+				exp.updateStatus(mtListArray);
+
+			}
+		}));
 
 	}
 
 	/**
 	 * @param f
 	 * @param pApplet
+	 *            add Filepath from image to Array List
 	 */
 	private void addToFilelist(File f, AbstractMTApplication pApplet) {
-		// System.out.println(f.getAbsolutePath());
-		// TODO loadimage only load from data dictonary ... neuen pfad einbinden
-		// PImage temp = pApplet.loadImage(f.getAbsolutePath());
-		// temp.resize(100, 120);
-		// SortImage imgtemp = new SortImage(pApplet, temp, f);
-		ListArray.add(f.getAbsolutePath());
-
+		mtListArray.add(f.getAbsolutePath());
 	}
 
 	/**
 	 * @param pApplet
+	 *            printing formatet images in a row below the screen
 	 */
 	private void printImage(AbstractMTApplication pApplet) {
 		int xpos = 100;
 		int ypos = 632;
-
-		for (int i = 0; i < ListArray.size(); i++) {
-			PImage temp = pApplet.loadImage(ListArray.get(i));
+		for (int i = 0; i < mtListArray.size(); i++) {
+			PImage temp = pApplet.loadImage(mtListArray.get(i));
 			temp.resize(100, 120);
-			SortImage imgtemp = new SortImage(pApplet, temp, ListArray.get(i));
-
+			SortImage imgtemp = new SortImage(pApplet, temp, mtListArray.get(i));
 			imgtemp.setNoFill(true);
 			imgtemp.setNoStroke(true);
 			imgtemp.translateGlobal(new Vector3D(xpos, ypos, 0));
@@ -151,5 +126,4 @@ public class PictureLoader extends MTComponent {
 			xpos += (100 + 20);
 		}
 	}
-
 }

@@ -27,12 +27,15 @@ public class PictureContainer extends MTComponent {
 	 * @param height
 	 * @param name
 	 * @param containerColor
+	 * 
+	 *            Consturctor form PictureContainer, with Color Name and x y h w
+	 *            attributes
 	 */
-	public PictureContainer(final AbstractMTApplication pApplet, float x, float y,
-			float width, float height, String name, MTColor containerColor) {
+	public PictureContainer(final AbstractMTApplication pApplet, float x,
+			float y, float width, float height, String name,
+			MTColor containerColor) {
 
 		super(pApplet);
-
 		this.setName(name);
 		MTRectangle rect = new MTRectangle(pApplet, x, y, width, height);
 		rect.setName(name);
@@ -51,19 +54,14 @@ public class PictureContainer extends MTComponent {
 
 		rect.addChild(counterLabel);
 		this.addChild(rect);
-
 		this.addInputListener(new IMTInputEventListener() {
-
 			@Override
 			public boolean processInputEvent(MTInputEvent inEvt) {
 				pApplet.invokeLater(new Runnable() {
-
 					@Override
 					public void run() {
-
 						pApplet.pushScene();
 						ViewScene viewScene = null;
-
 						if (viewScene == null) {
 							viewScene = new ViewScene(pApplet, "ViewScene",
 									mtImageArray); // Add the scene to the mt
@@ -71,23 +69,28 @@ public class PictureContainer extends MTComponent {
 							pApplet.addScene(viewScene);
 						} // Do the scene change
 						pApplet.changeScene(viewScene);
-
 					}
-
 				});
-
 				return false;
 			}
 		});
-
 	}
 
+	/**
+	 * @param image
+	 *            add the impage path to the Arraylist later shown on ViewScene
+	 */
 	public void addImagetoList(String image) {
 		mtImageArray.add(image);
 		pictureNumber++;
 
 	}
 
+	/**
+	 * @param pApplet
+	 *            Updating the Counter Label in the Picture Container to see the
+	 *            number of pictures in it
+	 */
 	public void updateNumber(AbstractMTApplication pApplet) {
 		this.counterLabel.setText("" + pictureNumber);
 		pApplet.update(pApplet.getGraphics());

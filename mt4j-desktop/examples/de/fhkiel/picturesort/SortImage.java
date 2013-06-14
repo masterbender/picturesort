@@ -14,6 +14,10 @@ import de.fhkiel.picturesort.PictureContainer;
 
 import processing.core.PImage;
 
+/**
+ * @author masterbender
+ * 
+ */
 public class SortImage extends MTImage {
 
 	public PickResult pr;
@@ -22,32 +26,25 @@ public class SortImage extends MTImage {
 	 * @param pApplet
 	 * @param texture
 	 * @param path
+	 *            Constructor for sortImage File containing Drag Drop listener
 	 */
 	public SortImage(final AbstractMTApplication pApplet, PImage texture,
 			final String path) {
 		super(pApplet, texture);
-
 		this.addGestureListener(DragProcessor.class,
 				new IGestureEventListener() {
-
 					@Override
 					public boolean processGestureEvent(MTGestureEvent ge) {
-
 						switch (ge.getId()) {
-
 						case MTGestureEvent.GESTURE_ENDED: {
 							Vector3D location = ((DragEvent) ge).getTo();
 							PickResult pr = pApplet.getScene("Main")
 									.getCanvas().pick(location.x, location.y);
-
 							List<PickEntry> underneathComponents = pr
 									.getPickList();
 							for (PickEntry pe : underneathComponents) {
-
 								if (pe.hitObj.getName().equals("keepContainer")) {
-
 									pApplet.invokeLater(new Runnable() {
-
 										@Override
 										public void run() {
 											((PictureContainer) pApplet
@@ -62,18 +59,13 @@ public class SortImage extends MTImage {
 													.getChildByName(
 															"keepContainer"))
 													.updateNumber(pApplet);
-
 										}
-
 									});
-
 									destroy();
 								}
 								if (pe.hitObj.getName()
 										.equals("maybeContainer")) {
-
 									pApplet.invokeLater(new Runnable() {
-
 										@Override
 										public void run() {
 											((PictureContainer) pApplet
@@ -89,15 +81,12 @@ public class SortImage extends MTImage {
 															"maybeContainer"))
 													.updateNumber(pApplet);
 										}
-
 									});
-
 									destroy();
 								}
 								if (pe.hitObj.getName()
 										.equals("trashContainer")) {
 									pApplet.invokeLater(new Runnable() {
-
 										@Override
 										public void run() {
 											((PictureContainer) pApplet
@@ -113,22 +102,15 @@ public class SortImage extends MTImage {
 															"trashContainer"))
 													.updateNumber(pApplet);
 										}
-
 									});
 									destroy();
 								}
-
 							}
 							return true;
-
 						}
 						}
-
 						return false;
 					}
-
 				});
-
 	}
-
 }
