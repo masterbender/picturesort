@@ -9,7 +9,7 @@ import org.mt4j.input.inputProcessors.globalProcessors.CursorTracer;
 
 public class MainScene extends AbstractScene {
 
-
+	PictureLoader loader;
 	/**
 	 * @param mtApplication
 	 * @param name
@@ -59,9 +59,11 @@ public class MainScene extends AbstractScene {
 
 
 	public void onEnter() {
+		
 	}
 
-	public void onLeave() {
+	public void onLeave() {	
+		
 	}
 
 

@@ -6,6 +6,8 @@ import org.mt4j.AbstractMTApplication;
 import org.mt4j.components.MTComponent;
 import org.mt4j.components.visibleComponents.shapes.MTRectangle;
 import org.mt4j.components.visibleComponents.widgets.MTTextField;
+import org.mt4j.input.IMTInputEventListener;
+import org.mt4j.input.inputData.MTInputEvent;
 import org.mt4j.util.MTColor;
 import org.mt4j.util.font.FontManager;
 
@@ -26,7 +28,7 @@ public class PictureContainer extends MTComponent {
 	 * @param name
 	 * @param containerColor
 	 */
-	public PictureContainer(AbstractMTApplication pApplet, float x, float y,
+	public PictureContainer(final AbstractMTApplication pApplet, float x, float y,
 			float width, float height, String name, MTColor containerColor) {
 
 		super(pApplet);
@@ -50,33 +52,36 @@ public class PictureContainer extends MTComponent {
 		rect.addChild(counterLabel);
 		this.addChild(rect);
 
-		/*
-		 * this.addInputListener(new IMTInputEventListener() {
-		 * 
-		 * @Override public boolean processInputEvent(MTInputEvent inEvt) {
-		 * pApplet.invokeLater(new Runnable() {
-		 * 
-		 * @Override public void run() {
-		 * 
-		 * pApplet.pushScene(); ViewScene viewScene = null;
-		 * 
-		 * if (viewScene == null) { viewScene = new ViewScene(pApplet,
-		 * "ViewScene", mtImageArray); // Add the scene to the mt application
-		 * pApplet.addScene(viewScene); } // Do the scene change
-		 * pApplet.changeScene(viewScene);
-		 * 
-		 * }
-		 * 
-		 * });
-		 * 
-		 * return false; } });
-		 */
+		this.addInputListener(new IMTInputEventListener() {
+
+			@Override
+			public boolean processInputEvent(MTInputEvent inEvt) {
+				pApplet.invokeLater(new Runnable() {
+
+					@Override
+					public void run() {
+
+						pApplet.pushScene();
+						ViewScene viewScene = null;
+
+						if (viewScene == null) {
+							viewScene = new ViewScene(pApplet, "ViewScene",
+									mtImageArray); // Add the scene to the mt
+													// application
+							pApplet.addScene(viewScene);
+						} // Do the scene change
+						pApplet.changeScene(viewScene);
+
+					}
+
+				});
+
+				return false;
+			}
+		});
 
 	}
 
-	/**
-	 * @param image
-	 */
 	public void addImagetoList(String image) {
 		mtImageArray.add(image);
 		pictureNumber++;

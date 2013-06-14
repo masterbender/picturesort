@@ -14,7 +14,6 @@ import org.mt4j.input.IMTInputEventListener;
 import org.mt4j.input.inputData.MTInputEvent;
 import org.mt4j.util.MTColor;
 import org.mt4j.util.math.Vector3D;
-
 import processing.core.PImage;
 
 public class PictureLoader extends MTComponent {
@@ -26,6 +25,7 @@ public class PictureLoader extends MTComponent {
 	MTImageButton loadButton;
 	int imageX = 150;
 	int imageY = 650;
+	PictureExport exp = new PictureExport();
 
 	// array of supported extensions (use a List if you prefer)
 	static final String[] EXTENSIONS = new String[] { "gif", "png", "bmp" };
@@ -62,7 +62,7 @@ public class PictureLoader extends MTComponent {
 		// fc.addChoosableFileFilter(filter);
 
 		PImage loadPhoto = pApplet.loadImage("load.jpg");
-		
+
 		loadButton = new MTImageButton(pApplet, loadPhoto);
 		loadButton.setName("loadButton");
 		loadButton.setSizeLocal(30, 30);
@@ -73,6 +73,10 @@ public class PictureLoader extends MTComponent {
 			@Override
 			public boolean processInputEvent(MTInputEvent inEvt) {
 				// TODO bug : open several times when click button
+
+		
+					
+
 				int returnVal = fc.showOpenDialog(pApplet);
 
 				if (returnVal == JFileChooser.APPROVE_OPTION) {
@@ -100,6 +104,17 @@ public class PictureLoader extends MTComponent {
 		});
 
 		bottomLayer.addChild(loadButton);
+		
+		if ((ListArray = exp.getImport()) != null){
+			printImage(pApplet);
+		}
+		
+		Runtime.getRuntime().addShutdownHook(new Thread(new Runnable() {
+            public void run() {
+                exp.updateStatus(ListArray);
+                
+            }
+        }));
 
 	}
 

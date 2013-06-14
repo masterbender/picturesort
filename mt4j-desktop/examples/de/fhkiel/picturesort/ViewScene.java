@@ -3,6 +3,9 @@ package de.fhkiel.picturesort;
 import java.util.ArrayList;
 
 import org.mt4j.AbstractMTApplication;
+import org.mt4j.components.visibleComponents.shapes.MTRectangle;
+import org.mt4j.input.IMTInputEventListener;
+import org.mt4j.input.inputData.MTInputEvent;
 import org.mt4j.sceneManagement.AbstractScene;
 import org.mt4j.util.math.Vector3D;
 
@@ -10,7 +13,7 @@ import processing.core.PImage;
 
 public class ViewScene extends AbstractScene {
 
-	public ViewScene(AbstractMTApplication mtApplication, String name,
+	public ViewScene( AbstractMTApplication mtApplication, String name,
 			ArrayList<String> mtImageArray) {
 		super(mtApplication, name);
 
@@ -30,5 +33,20 @@ public class ViewScene extends AbstractScene {
 			xpos += (300 + 20);
 
 		}
+		
+		MTRectangle closeRect = new MTRectangle(mtApplication, 50, 50);
+		closeRect.setName("close");
+		closeRect.translateGlobal(new Vector3D(400,400,0));
+		closeRect.addInputListener(new IMTInputEventListener() {
+			
+			@Override
+			public boolean processInputEvent(MTInputEvent inEvt) {
+				//TODO wieder dies scene wechseln
+				return false;
+			}
+		});
+		this.getCanvas().addChild(closeRect);
+		
+		
 	}
 }

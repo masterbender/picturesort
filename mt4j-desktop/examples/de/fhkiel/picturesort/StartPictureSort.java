@@ -4,6 +4,7 @@ import org.mt4j.MTApplication;
 
 public class StartPictureSort extends MTApplication{
 
+
 	/**
 	 * 
 	 */
@@ -14,6 +15,7 @@ public class StartPictureSort extends MTApplication{
 	 */
 	public static void main(String[] args) {
 		initialize();
+		
 
 	}
 	
@@ -21,6 +23,7 @@ public class StartPictureSort extends MTApplication{
 	public void startUp() {
 		addScene(new MainScene(this, "Main"));
 	}
+	
 	
 
 }
